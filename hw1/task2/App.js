@@ -1,9 +1,10 @@
 import React, {useState} from "react";
+import RNPickerSelect from 'react-native-picker-select';
 import {View, Text, StyleSheet, TouchableOpacity, TextInput, Pressable, ScrollView} from 'react-native';
 
 export default function App() {
     return (
-            <BoxViews/>
+        <BoxViews/>
     );
 }
 
@@ -11,17 +12,35 @@ function BoxViews() {
     let [boxes, setBoxes] = useState([]);
     let [size, setSize] = useState(0);
     let [color, setColor] = useState('');
-    const addBox = (size, color) => {
+    let [align, setAlign] = useState('center');
+    let [borderRadius, setBorderRadius] = useState(0);
+    let [separatorHeight, setSeparatorHeight] = useState(1);
+    const addBox = (size, color, align, borderRadius, separatorHeight) => {
         setBoxes([...boxes, {
             width: size,
             height: size,
-            color: color
+            color: color,
+            align: align,
+            borderRadius: borderRadius,
+            separatorHeight: separatorHeight
         }
         ]);
     };
     const clearBoxes = () => {
         setBoxes([]);
     }
+
+    const handleSeparatorHeightChange = (height) => {
+        setSeparatorHeight(parseInt(height));
+    };
+
+    const handleAlignChange = (alignment) => {
+        setAlign(alignment);
+    };
+
+    const handleBorderRadiusChange = (radius) => {
+        setBorderRadius(radius);
+    };
 
     const handleRed = () => {
         setColor('red')
@@ -36,7 +55,7 @@ function BoxViews() {
     }
 
     const handleButton = () => {
-        addBox(size, color)
+        addBox(size, color, align, borderRadius, separatorHeight)
     }
 
     return (
@@ -72,6 +91,38 @@ function BoxViews() {
             </View>
 
             <View style={styles.params}>
+                <Text style={styles.text}>Выравнивание</Text>
+                <View style={{marginStart: 24, width: 100}}>
+                    <RNPickerSelect
+                        onValueChange={(value) => handleAlignChange(value)}
+                        items={[
+                            {label: 'Центр', value: 'center'},
+                            {label: 'Слева', value: 'flex-start'},
+                            {label: 'Справа', value: 'flex-end'},
+                        ]}
+                    />
+                </View>
+            </View>
+
+            <View style={styles.params}>
+                <Text style={styles.text}>Радиус</Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(radius) => handleBorderRadiusChange(parseInt(radius))}
+                    keyboardType='numeric'
+                />
+            </View>
+
+            <View style={styles.params}>
+                <Text style={styles.text}>Высота разделителя</Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(height) => handleSeparatorHeightChange(parseInt(height))}
+                    keyboardType='numeric'
+                />
+            </View>
+
+            <View style={styles.params}>
 
                 <TouchableOpacity style={[styles.buttonFirst, {marginTop: 24}]}
                                   onPress={handleButton}>
@@ -89,13 +140,18 @@ function BoxViews() {
 }
 
 function Container(props) {
-    const boxes = props.boxes.map(box => <Box
-        key={Date.now() * Math.random()}
-        width={box.width}
-        height={box.height}
-        color={box.color}
-        borderColor={box.borderColor}
-    />);
+    const boxes = props.boxes.map(box =>
+        <View key={Date.now() * Math.random()}>
+            <Box
+                width={box.width}
+                height={box.height}
+                color={box.color}
+                borderRadius={box.borderRadius}
+                align={box.align}
+            />
+            <View style={{height: box.separatorHeight, backgroundColor: 'transparent'}}/>
+        </View>
+    );
 
     return (
         <ScrollView style={styles.scroll}>
@@ -108,7 +164,9 @@ export const Box = (props) => (
     <View style={{
         width: props.width,
         height: props.height,
-        backgroundColor: props.color
+        backgroundColor: props.color,
+        borderRadius: props.borderRadius,
+        alignSelf: props.align,
     }}/>
 );
 
@@ -154,11 +212,10 @@ const styles = StyleSheet.create({
     }
     ,
     scroll: {
-        width: 400,
-        height: 400,
-        paddingVertical: 60,
-        paddingHorizontal: 150,
-        marginBottom: 24
+        height: 200,
+        marginTop: 32,
+        marginBottom: 8,
+        paddingHorizontal: 24
     },
     container: {
         flex: 1,
@@ -196,7 +253,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginStart: 24,
-        gap: 20
+        gap: 20,
+        marginTop: 24
     },
     content: {
         alignItems: 'center',
