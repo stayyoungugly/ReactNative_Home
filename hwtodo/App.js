@@ -8,7 +8,7 @@ import CompletedTasksScreen from "./screens/CompletedTasksScreen";
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
@@ -18,3 +18,5 @@ export default function App() {
         </NavigationContainer>
     );
 }
+
+export default App;
