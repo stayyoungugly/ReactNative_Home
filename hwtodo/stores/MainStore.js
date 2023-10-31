@@ -1,5 +1,5 @@
 import React from "react";
-import {ToDoStore} from "./ToDoStore";
+import {ToDoStore} from "../modules/todo/stores/ToDoStore";
 
 class MainStore {
     todoStore;

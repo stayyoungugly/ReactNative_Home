@@ -1,7 +1,7 @@
 import {Button, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import React, {useEffect} from "react";
 import {observer} from "mobx-react";
-import {useMainStore} from "../hooks/useMainStore";
+import {useMainStore} from "../../hooks/useMainStore";
 
 export const ToDoLine = observer(props => {
     const {todoStore} = useMainStore();

@@ -1,5 +1,5 @@
 import ToDoRepository from "../repositories/ToDoRepository";
-import {ToDoEntity} from "../entities/ToDoEntity";
+import {ToDoModel} from "../models/ToDoModel";
 
 export default class ToDoService {
     todoRepository;
@@ -11,7 +11,7 @@ export default class ToDoService {
     getAndPrepareDataForStore = () => {
         const data = this.todoRepository.getDataFromExternalStorage();
 
-        const model = new ToDoEntity();
+        const model = new ToDoModel();
         model.todoList = data.defaultToDoList;
 
         return model;

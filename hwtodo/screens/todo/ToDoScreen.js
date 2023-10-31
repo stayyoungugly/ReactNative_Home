@@ -10,8 +10,8 @@ import {
 } from "react-native";
 import {StatusBar} from "expo-status-bar";
 import {observer} from "mobx-react";
-import {useMainStore} from "../hooks/useMainStore";
-import ToDoLine from "../components/ToDoLine";
+import {useMainStore} from "../../hooks/useMainStore";
+import ToDoLine from "../../components/todo/ToDoLine";
 import {useNavigation} from "@react-navigation/native";
 
 const ToDoScreen = observer(({navigation: {navigate}}) => {

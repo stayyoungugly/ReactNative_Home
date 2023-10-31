@@ -2,9 +2,9 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native' ;
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
-import ToDoScreen from "./screens/ToDoScreen";
+import ToDoScreen from "./screens/todo/ToDoScreen";
 
-import CompletedTasksScreen from "./screens/CompletedTasksScreen";
+import CompletedTasksScreen from "./screens/todo/CompletedTasksScreen";
 
 const Stack = createNativeStackNavigator();
 

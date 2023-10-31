@@ -1,7 +1,7 @@
 import {FlatList, SafeAreaView, StyleSheet, Text, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react";
-import {useMainStore} from "../hooks/useMainStore";
+import {useMainStore} from "../../hooks/useMainStore";
 import {StatusBar} from "expo-status-bar";
 
 const CompletedTasksScreen = observer(({navigation}) => {
