@@ -4,7 +4,7 @@ import TodoApiService from "./TodoApiService";
 export class TodoApiStore {
     todoList = null;
 
-    isLoading = true;
+    isLoading = false;
 
     todoApiService;
 
@@ -13,8 +13,9 @@ export class TodoApiStore {
         this.todoApiService = new TodoApiService();
     }
 
-    getItems = () => {
+    getItems = async () => {
         this.setIsLoading(true);
+
         this.todoApiService
             .getItems()
             .then(result => {
@@ -26,8 +27,18 @@ export class TodoApiStore {
             .finally(() => {
                 this.setIsLoading(false);
             });
-    };
+    }
 
+    loadItems = async () => {
+        this.setIsLoading(true);
+        this.todoApiService.setItems()
+            .then(this.getItems)
+    }
+
+    removeItems = async () => {
+        this.todoApiService.removeItems()
+            .then(() => this.setTodoList(null));
+    }
 
     setTodoList = value => {
         this.todoList = value;

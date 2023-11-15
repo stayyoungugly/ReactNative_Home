@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {TodoApiStore} from "../modules/todo-api/TodoApiStore";
 
 class RootStore {
-    todoApiStore;
+    todoApiStore
 
     constructor() {
         this.todoApiStore = new TodoApiStore();
