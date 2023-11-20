@@ -1,5 +1,6 @@
 import ToDoRepository from "../repositories/ToDoRepository";
 import {ToDoModel} from "../models/ToDoModel";
+import type {ToDo} from "../models/ToDoModel";
 
 export default class ToDoService {
     todoRepository;
@@ -33,6 +34,6 @@ export default class ToDoService {
     }
 
     getCompletedToDo = (model) => {
-        return model.filter((item) => item.completed);
+        return model.todoList.filter((item: ToDo) => item.completed);
     }
 }

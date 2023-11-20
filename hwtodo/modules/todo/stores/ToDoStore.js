@@ -2,7 +2,7 @@ import {makeAutoObservable} from "mobx";
 import ToDoService from "../services/ToDoService";
 
 export class ToDoStore {
-    todoEntity = null;
+    todoModel = null
 
     isLoading = false;
 
@@ -15,37 +15,42 @@ export class ToDoStore {
 
     getToDoObjectFromService = () => {
         const model = this.todoService.getAndPrepareDataForStore();
-        this.setToDoEntity(model);
+        this.setToDoModel(model);
     }
 
-    actionGetCompleted = (model) => {
-        return this.todoService.getCompletedToDo(model);
+    actionGetCompleted = () => {
+        const completed = this.todoService.getCompletedToDo(this.todoModel);
+        console.log(completed)
+        return completed;
     }
 
     actionAdd = (value) => {
-        this.setIsLoading(true);
-        const model = this.todoService.addToDo(this.todoEntity, value);
-        this.setToDoEntity(model);
+        this.setIsLoading(true)
+        const model = this.todoService.addToDo(this.todoModel, value)
+        this.setToDoModel(model)
+        console.log(this.todoModel)
         this.setIsLoading(false)
     };
 
     actionChange = (index) => {
         this.setIsLoading(true);
-        const model = this.todoService.changeToDo(this.todoEntity, index);
-        this.setToDoEntity(model);
+        const model = this.todoService.changeToDo(this.todoModel, index);
+        this.setToDoModel(model);
+        console.log(this.todoModel)
         this.setIsLoading(false)
     };
 
 
     actionDelete = (index) => {
         this.setIsLoading(true);
-        const model = this.todoService.deleteToDo(this.todoEntity, index);
-        this.setToDoEntity(model);
+        const model = this.todoService.deleteToDo(this.todoModel, index);
+        this.setToDoModel(model);
+        console.log(this.todoModel)
         this.setIsLoading(false)
     };
 
-    setToDoEntity = value => {
-        this.todoEntity = value;
+    setToDoModel = value => {
+        this.todoModel = value;
     }
 
     setIsLoading = value => {

@@ -7,7 +7,7 @@ import {StatusBar} from "expo-status-bar";
 const CompletedTasksScreen = observer(({navigation}) => {
     const {todoStore} = useMainStore();
 
-    const [todo, setTodo] = useState(todoStore.actionGetCompleted(todoStore.todoEntity.todoList) || []);
+    const [todo, setTodo] = useState(todoStore.actionGetCompleted(todoStore.todoModel.todoList) || []);
 
     useEffect(() => {
     }, [todo])
